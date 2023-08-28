@@ -7,6 +7,7 @@ import { DashScreen } from './screens/dash';
 import DataProvider from './lib/data/provider';
 import { ListScreen } from './screens/list';
 import { NewDashScreen } from './screens/dash/new';
+import { FeedbackScreen } from './screens/feedback';
 
 const Stack = createStackNavigator();
 
@@ -21,6 +22,12 @@ export default function App() {
            }}/>
           <Stack.Screen name="NewDash" component={NewDashScreen} options={{ 
             title: '',
+          }}/>
+          <Stack.Screen name="Feedback" component={FeedbackScreen} options={{ 
+            title: '',
+            headerStyle: {
+              backgroundColor: '#5eba7d',
+            }
           }}/>
         </Stack.Navigator>
       </NavigationContainer>

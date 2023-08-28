@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, Image, Pressable } from "react-native"
 import useData from "../../lib/data/useData"
 import Button from 'react-native-flat-button'
 import { ButtonComponent } from "../../components/button"
+import MasonryList from '@react-native-seoul/masonry-list';
 
 const themes = {
   'dinosaurs': require(`../../assets/themes/dinosaurs.png`),
@@ -16,19 +17,29 @@ export function ListScreen({navigation, route}) {
   return (
     <View style={styles.container}>
       <View style={styles.listContainer}>
-        {dashes && Object.keys(dashes).map(dashId => {
-          const dash = dashes[dashId]
-          return (<View style={styles.imageContainer} key={dashId}>
-            <Pressable onPress={() => {navigation.navigate("Dash", {id : dashId})}}>
-              <Text style={styles.objetiveText}>{dash.objetive}</Text>
-              <Image source={themes[dash.theme]} style={{ alignSelf: 'center', height: 130, width: 200 }} resizeMode='contain'/>
-            </Pressable>
-          </View>)
-        })}
+        <MasonryList
+          data={Object.keys(dashes)}
+          keyExtractor={({item}): string => item}
+          numColumns={2}
+          showsVerticalScrollIndicator={true}
+          renderItem={({item}) => {
+            const dash = dashes[item]
+            return (
+              <View style={styles.imageContainer} key={item}>
+                <Pressable onPress={() => {navigation.navigate("Dash", {id: item})}}>
+                  <Text style={styles.objetiveText}>{dash.objetive}</Text>
+                  <Image source={themes[dash.theme]} style={{ alignSelf: 'center', height: 130, width: 200 }} resizeMode='contain'/>
+                </Pressable>
+              </View>
+            )
+          }}
+        />
       </View>
-      <ButtonComponent text="Nuevo tablero" onPress={() => {
-        navigation.navigate("NewDash")
-      }}/>
+      <View style={styles.buttonContainer}>
+        <ButtonComponent text="Nuevo tablero" onPress={() => {
+          navigation.navigate("NewDash")
+        }}/>
+      </View>
     </View>
   )
 }
@@ -48,18 +59,18 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   listContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between'
+    flex: 1
   },
   dashContainer: {
 
   },
   imageContainer: {
-    width: '50%',
-    height: 140,
+    //width: '50%',
+    //height: 150,
     marginBottom: 20
+  },
+  buttonContainer: {
+    paddingTop: 20
   },
   objetiveText: {
     fontSize: 18,
