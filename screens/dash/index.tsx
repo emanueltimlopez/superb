@@ -26,11 +26,11 @@ export function DashScreen({navigation, route}) {
         {finalTokens.map(token => {
           if (!token.date) {
             return (
-              <View style={[styles.emptyContainer, {
-                width: imageWidth,
-                height: imageHeight - 20
-              }]} key={token}>
-              </View>
+              <Image source={tokens[dash.theme].empty} style={{
+                alignSelf: 'center',
+                height: imageHeight,
+                width: imageWidth
+              }} resizeMode='contain'/>
             )
           }
           return (<View style={{
@@ -45,13 +45,13 @@ export function DashScreen({navigation, route}) {
           </View>)
         })}
       </View>
-      <ButtonComponent text="¡Lo lograste!" onPress={() => {
+      {tokensList?.length < 24 && <ButtonComponent text="¡Lo lograste!" onPress={() => {
         const token = Math.floor(Math.random() * 6) + 1
         setTimeout(() => {
           addToken(dashId, token)
         }, 1000)
         navigation.navigate("Feedback", {tokenId: token, dashTheme: dash.theme})
-      }}/>
+      }}/>}
     </View>
   )
 }
