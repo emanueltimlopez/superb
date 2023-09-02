@@ -19,6 +19,8 @@ export interface Dash {
   type: string;
   theme: string;
   tokens: Token[];
+  quantity: number;
+  reinforcement: string;
 }
 
 export interface IDataContext {

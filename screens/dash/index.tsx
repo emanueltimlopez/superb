@@ -13,7 +13,7 @@ export function DashScreen({navigation, route}) {
   const dash = dashes[dashId]
   const tokensList = getTokens(dashId)
   const tokensOverflow = (tokensList?.length || 0) > 12
-  const spaces = tokensOverflow ? 24 : 15
+  const spaces = dash.quantity
   const imageHeight = (windowHeight - 200) / (tokensOverflow ? 6 : 4) - 20
   const imageWidth = windowWidth / (tokensOverflow ? 4 : 3) - 20
 
@@ -23,6 +23,8 @@ export function DashScreen({navigation, route}) {
   return (
     <View style={styles.container}>
       <View style={styles.listContainer}>
+        <Text style={styles.reinceforment}>Vamos a trabajar por {dash.reinforcement}</Text>
+
         {finalTokens.map(token => {
           if (!token.date) {
             return (
@@ -45,13 +47,16 @@ export function DashScreen({navigation, route}) {
           </View>)
         })}
       </View>
-      {tokensList?.length < 24 && <ButtonComponent text="¡Lo lograste!" onPress={() => {
+      {tokensList?.length < dash.quantity ? <ButtonComponent text="¡Lo lograste!" onPress={() => {
         const token = Math.floor(Math.random() * 6) + 1
-        setTimeout(() => {
-          addToken(dashId, token)
-        }, 1000)
-        navigation.navigate("Feedback", {tokenId: token, dashTheme: dash.theme})
-      }}/>}
+        const isTheLast = (tokensList?.length + 1) === dash.quantity
+        addToken(dashId, token)
+
+        if (isTheLast) {
+          console.log('LETS GOOO')
+          navigation.navigate("Feedback", { dashReinforcement: dash.reinforcement })
+        }
+      }}/> : <Text style={styles.reinceforment}>Completado</Text>}
     </View>
   )
 }
@@ -61,11 +66,19 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     paddingHorizontal: 20,
-    paddingBottom: 5
+    paddingBottom: 15
   },
   title: {
     fontSize: 24,
     textAlign: 'center',
+  },
+  reinceforment: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginTop: 10,
+    padding: 20,
+    width: '100%',
   },
   text: {
     fontSize: 18,

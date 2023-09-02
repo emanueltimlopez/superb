@@ -8,6 +8,7 @@ import DataProvider from './lib/data/provider';
 import { ListScreen } from './screens/list';
 import { NewDashScreen } from './screens/dash/new';
 import { FeedbackScreen } from './screens/feedback';
+import { MetricsScreen } from './screens/metrics';
 
 const Stack = createStackNavigator();
 
@@ -29,6 +30,7 @@ export default function App() {
               backgroundColor: '#5eba7d',
             }
           }}/>
+          <Stack.Screen name="Metrics" component={MetricsScreen} options={{ title: '' }}/>
         </Stack.Navigator>
       </NavigationContainer>
     </DataProvider>

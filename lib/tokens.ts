@@ -4,7 +4,7 @@ export const tokens = {
     2: require(`../assets/tokens/dinosaurs/2.png`),
     3: require(`../assets/tokens/dinosaurs/3.png`),
     4: require(`../assets/tokens/dinosaurs/4.png`),
-    5: require(`../assets/tokens/dinosaurs/5.png`),
+    5: require(`../assets/tokens/dinosaurs/3.png`),
     6: require(`../assets/tokens/dinosaurs/6.png`),
     empty: require(`../assets/tokens/dinosaurs/empty.png`)
   },
@@ -16,5 +16,14 @@ export const tokens = {
     5: require(`../assets/tokens/transports/5.png`),
     6: require(`../assets/tokens/transports/6.png`),
     empty: require(`../assets/tokens/transports/empty.png`)
+  },
+  farm: {
+    1: require(`../assets/tokens/farm/1.png`),
+    2: require(`../assets/tokens/farm/2.png`),
+    3: require(`../assets/tokens/farm/3.png`),
+    4: require(`../assets/tokens/farm/4.png`),
+    5: require(`../assets/tokens/farm/5.png`),
+    6: require(`../assets/tokens/farm/6.png`),
+    empty: require(`../assets/tokens/farm/empty.png`)
   }
 }

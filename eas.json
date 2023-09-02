@@ -1,0 +1,13 @@
+{
+  "cli": {
+    "version": ">= 5.0.2"
+  },
+  "submit": {
+    "production": {
+      "android": {
+        "serviceAccountKeyPath": "../pc-api-6735984488871038250-232-1ab1d1dc8e58.json",
+        "track": "internal"
+      }
+    }
+  }
+}

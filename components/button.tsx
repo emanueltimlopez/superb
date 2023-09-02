@@ -1,8 +1,8 @@
-import React from "react"
+import React, { Children } from "react"
 import { StyleSheet, View } from "react-native"
 import Button from 'react-native-flat-button'
 
-export function ButtonComponent({ onPress, text, stylesProp = {} }) {
+export function ButtonComponent({ onPress, text='', stylesProp = {}, children }) {
   return (
     <View style={styles.buttonContainer}>
       <Button
@@ -15,7 +15,8 @@ export function ButtonComponent({ onPress, text, stylesProp = {} }) {
         activeOpacity={0.5}
         contentStyle={[styles.button, stylesProp]}
       >
-        {text}
+        {text && text}
+        {children && children}
       </Button>
     </View>
   )
@@ -28,6 +29,6 @@ const styles = StyleSheet.create({
     fontWeight: '900'
   },
   buttonContainer: {
-    paddingHorizontal: 50
+
   }
 })

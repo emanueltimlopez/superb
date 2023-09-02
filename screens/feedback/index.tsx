@@ -12,12 +12,9 @@ const windowHeight = Dimensions.get("window").height;
 export function FeedbackScreen({navigation, route}) {
   const [showImage, setShowImage] = useState(false)
   const [showButton, setShowButton] = useState(false)
-  const [showConfetti, setShowConfetti] = useState(false)
   const animationProgress = useRef(new Animated.Value(0));
-  const confetti = useRef();
 
-  const tokenId = route.params?.tokenId
-  const dashTheme = route.params?.dashTheme
+  const dashReinforcement = route.params?.dashReinforcement
 
   useEffect(() => {
     Animated.timing(animationProgress.current, {
@@ -36,12 +33,7 @@ export function FeedbackScreen({navigation, route}) {
           height: 300,
           width: 300,
         }} progress={animationProgress.current} source={require("../../assets/animation.json")} />}
-        {showImage && <Image source={tokens[dashTheme][tokenId]} style={{
-          alignSelf: 'center',
-          height: 200,
-          width: 200,
-          marginBottom: 40
-        }} resizeMode='contain'/>}
+        {showImage && <Text style={styles.reinceforment}>Te ganaste {dashReinforcement}</Text>}
       </View>
       <View style={{ position: 'absolute', top: windowHeight / 2 - 200, height: windowHeight - 200 }}>
         <ConfettiCannon autoStartDelay={1500} count={100} origin={{x: windowWidth / 2 - 20, y: 0}} onAnimationStart={ () => {
@@ -65,5 +57,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingBottom: 5,
     paddingTop: windowHeight / 2 - 200
+  },
+  reinceforment: {
+    fontSize: 32,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginTop: 10,
+    padding: 20,
+    width: '100%',
+    color: '#fff',
+    paddingBottom: 50
   },
 })
