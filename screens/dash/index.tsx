@@ -53,7 +53,6 @@ export function DashScreen({navigation, route}) {
         addToken(dashId, token)
 
         if (isTheLast) {
-          console.log('LETS GOOO')
           navigation.navigate("Feedback", { dashReinforcement: dash.reinforcement })
         }
       }}/> : <Text style={styles.reinceforment}>Completado</Text>}

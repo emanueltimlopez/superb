@@ -1,5 +1,5 @@
 import React from "react"
-import { Dimensions, StyleSheet, View } from "react-native"
+import { Dimensions, StyleSheet, Text, View } from "react-native"
 import useData from "../../lib/data/useData"
 import BarChart from "../../components/barChar";
 import dayjs from 'dayjs'
@@ -19,10 +19,14 @@ const groupDates = (dates) => dates.reduce((accumulator, date) => {
 export function MetricsScreen({navigation, route}) {
   const { dashes } = useData()
 
-  const tokens = Object.values(dashes).map(({ tokens }) => {
-    return tokens.map(({ date }) => date)
-  }).flat()
-  const groups = groupDates(tokens)
+  const dashCompleted = Object.values(dashes).filter(({ tokens, quantity }) => {
+    return quantity === tokens.length
+  }).map(({ tokens }) => {
+    return tokens[tokens.length -1].date
+  })
+
+  const groups = groupDates(dashCompleted)
+
   const constGroups = Object.keys(groups).map((key) => {
     const { dates } = groups[key]
     const date = new Date(key)
@@ -36,6 +40,9 @@ export function MetricsScreen({navigation, route}) {
   
   return (
     <View style={styles.container}>
+      <Text style={styles.title}>Tableros completados</Text>
+      <Text style={styles.count}>{dashCompleted?.length}/{Object.values(dashes)?.length}</Text>
+      <Text style={styles.title}>Tableros completados por mes</Text>
       <BarChart data={constGroups}/>
     </View>
   )
@@ -47,4 +54,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     paddingHorizontal: 20,
   },
+  title: {
+    fontWeight: 'bold',
+    fontSize: 20,
+    marginTop: 20
+  },
+  count: {
+    fontSize: 32,
+    textAlign: 'center'
+  }
 })

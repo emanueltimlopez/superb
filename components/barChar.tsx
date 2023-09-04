@@ -45,16 +45,6 @@ export default class BarChart extends PureComponent {
     return (
       <Svg width={SVGWidth} height={SVGHeight}>
         <G y={graphHeight + GRAPH_MARGIN}>
-          {/* Top value label */}
-          <Text
-              x={graphWidth}
-              textAnchor="end"
-              y={y(topValue) * -1 - 5}
-              fontSize={14}
-              fill="black"
-              fillOpacity={0.4}>
-              Refuerzos
-            </Text>
 
           {/* top axis */}
           <Line

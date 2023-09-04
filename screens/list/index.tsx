@@ -12,14 +12,15 @@ const themes = {
 }
 
 export function ListScreen({navigation, route}) {
-  const { user, dashes } = useData()
-  const userId = route.params?.userId || '1'
+  const { dashes } = useData()
+
+  const dashesReversed = Object.keys(dashes).reverse()
   
   return (
     <View style={styles.container}>
       <View style={styles.listContainer}>
         <MasonryList
-          data={Object.keys(dashes)}
+          data={dashesReversed}
           keyExtractor={({item}): string => item}
           numColumns={2}
           showsVerticalScrollIndicator={true}
