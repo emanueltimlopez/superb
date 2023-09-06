@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react"
+import React, { useCallback, useEffect, useState } from "react"
 import { StyleSheet, Text, View, Image, Pressable } from "react-native"
 import useData from "../../lib/data/useData"
 import { ButtonComponent } from "../../components/button"
 import MasonryList from '@react-native-seoul/masonry-list';
 import Svg, { Path, Rect } from "react-native-svg"
+import * as SplashScreen from 'expo-splash-screen';
 
 const themes = {
   'dinosaurs': require(`../../assets/themes/dinosaurs.png`),
@@ -11,13 +12,33 @@ const themes = {
   'farm': require(`../../assets/themes/farm.png`)
 }
 
+SplashScreen.preventAutoHideAsync();
+
 export function ListScreen({navigation, route}) {
   const { dashes } = useData()
+  const [appIsReady, setAppIsReady] = useState(false);
+
+  useEffect(() => {
+    async function prepare() {
+      setAppIsReady(true)
+    }
+    prepare()
+  }, [])
+
+  const onLayoutRootView = useCallback(async () => {
+    if (appIsReady) {
+      await SplashScreen.hideAsync();
+    }
+  }, [appIsReady]);
+
+  if (!appIsReady) {
+    return null;
+  }
 
   const dashesReversed = Object.keys(dashes).reverse()
   
   return (
-    <View style={styles.container}>
+    <View style={styles.container} onLayout={onLayoutRootView}>
       <View style={styles.listContainer}>
         <MasonryList
           data={dashesReversed}
@@ -30,7 +51,7 @@ export function ListScreen({navigation, route}) {
               <View style={styles.imageContainer} key={item}>
                 <Pressable onPress={() => {navigation.navigate("Dash", {id: item})}}>
                   <Text style={styles.objetiveText}>{dash.objetive}</Text>
-                  <Image source={themes[dash.theme]} style={{ alignSelf: 'center', height: 130, width: 200 }} resizeMode='contain'/>
+                  <Image source={themes[dash.theme]} style={{ width: "100%" }} resizeMode='contain'/>
                 </Pressable>
               </View>
             )
@@ -81,9 +102,7 @@ const styles = StyleSheet.create({
 
   },
   imageContainer: {
-    //width: '50%',
-    //height: 150,
-    marginBottom: 20
+
   },
   buttonContainer: {
     paddingTop: 20,
@@ -95,6 +114,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     textAlign: 'center',
     fontWeight: 'bold',
-    padding: 5
+    paddingHorizontal: 5
   }
 })

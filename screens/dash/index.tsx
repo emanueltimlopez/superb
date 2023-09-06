@@ -9,6 +9,7 @@ const windowHeight = Dimensions.get("window").height;
 
 export function DashScreen({navigation, route}) {
   const { user, getTokens, addToken, dashes } = useData()
+  const [finish, setFinish] = useState(false)
   const dashId = route.params?.id
   const dash = dashes[dashId]
   const tokensList = getTokens(dashId)
@@ -47,15 +48,16 @@ export function DashScreen({navigation, route}) {
           </View>)
         })}
       </View>
-      {tokensList?.length < dash.quantity ? <ButtonComponent text="¡Lo lograste!" onPress={() => {
+      {tokensList?.length < dash.quantity && <ButtonComponent text="¡Lo lograste!" onPress={() => {
         const token = Math.floor(Math.random() * 6) + 1
         const isTheLast = (tokensList?.length + 1) === dash.quantity
         addToken(dashId, token)
-
-        if (isTheLast) {
-          navigation.navigate("Feedback", { dashReinforcement: dash.reinforcement })
-        }
-      }}/> : <Text style={styles.reinceforment}>Completado</Text>}
+        setFinish(true)
+      }}/>}
+      {!(tokensList?.length < dash.quantity) && finish && <ButtonComponent background="#5eba7d" border="#2d5c3d" text="¡Festejemos!" onPress={() => {
+        navigation.navigate("Feedback", { dashReinforcement: dash.reinforcement })
+      }}/>}
+      {!(tokensList?.length < dash.quantity) && !finish && <Text style={styles.reinceforment}>Completado</Text>}
     </View>
   )
 }
@@ -86,7 +88,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start',
   },
   emptyContainer: {
     borderWidth: 2,

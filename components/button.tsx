@@ -2,14 +2,14 @@ import React, { Children } from "react"
 import { StyleSheet, View } from "react-native"
 import Button from 'react-native-flat-button'
 
-export function ButtonComponent({ onPress, text='', stylesProp = {}, children }) {
+export function ButtonComponent({ onPress, text='', stylesProp = {}, children, background = "#9b59b6", border = "#8e44ad" }) {
   return (
     <View style={styles.buttonContainer}>
       <Button
         type="custom"
         onPress={() => onPress()}
-        backgroundColor={"#9b59b6"}
-        borderColor={"#8e44ad"}
+        backgroundColor={background}
+        borderColor={border}
         borderRadius={6}
         shadowHeight={8}
         activeOpacity={0.5}
