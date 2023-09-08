@@ -13,9 +13,9 @@ export function DashScreen({navigation, route}) {
   const dashId = route.params?.id
   const dash = dashes[dashId]
   const tokensList = getTokens(dashId)
-  const tokensOverflow = (tokensList?.length || 0) > 12
   const spaces = dash.quantity
-  const imageHeight = (windowHeight - 200) / (tokensOverflow ? 6 : 4) - 20
+  const tokensOverflow = spaces > 12
+  const imageHeight = (windowHeight - 200) / (tokensOverflow ? 6 : 4) - 10
   const imageWidth = windowWidth / (tokensOverflow ? 4 : 3) - 20
 
   const emptyTokens = Array.from({length: spaces - (tokensList?.length || 0)}, (v, index) => (index))
