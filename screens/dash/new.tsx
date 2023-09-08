@@ -30,7 +30,7 @@ export function NewDashScreen({navigation, route}) {
     <View style={styles.container}>
       <View style={styles.optionsContainer}>
         <Text style={styles.label}>¿Que es lo que se quiere lograr?</Text>
-        <TextInput placeholder="Objetivo" style={styles.input} value={objetive} onChangeText={(value) => setObjetive(value)}/>
+        <TextInput multiline placeholder="Objetivo" style={styles.input} value={objetive} onChangeText={(value) => setObjetive(value)}/>
         <Text style={styles.label}>¿Cual es el premio?</Text>
         <TextInput placeholder="Refuerzo" style={styles.input} value={reinforcement} onChangeText={(value) => setReinforcement(value)}/>
         <Text style={styles.label}>Selecciona un tema</Text>

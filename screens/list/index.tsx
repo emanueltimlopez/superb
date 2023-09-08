@@ -50,8 +50,8 @@ export function ListScreen({navigation, route}) {
             return (
               <View style={styles.imageContainer} key={item}>
                 <Pressable onPress={() => {navigation.navigate("Dash", {id: item})}}>
-                  <Text style={styles.objetiveText}>{dash.objetive}</Text>
-                  <Image source={themes[dash.theme]} style={{ width: "100%" }} resizeMode='contain'/>
+                  <Text style={styles.objetiveText}  numberOfLines={4} ellipsizeMode='tail'>{dash.objetive}</Text>
+                  <Image source={themes[dash.theme]} style={{ width: "100%", height: 150 }} resizeMode='contain'/>
                 </Pressable>
               </View>
             )
