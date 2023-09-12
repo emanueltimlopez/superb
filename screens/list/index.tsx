@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react"
-import { StyleSheet, Text, View, Image, Pressable } from "react-native"
+import { StyleSheet, Text, View, Image, Pressable, Linking, Alert, Button } from "react-native"
 import useData from "../../lib/data/useData"
 import { ButtonComponent } from "../../components/button"
 import MasonryList from '@react-native-seoul/masonry-list';
@@ -34,6 +34,25 @@ export function ListScreen({navigation, route}) {
   if (!appIsReady) {
     return null;
   }
+
+  type OpenURLButtonProps = {
+    url: string;
+    children: string;
+  };
+
+  const OpenURLButton = ({url, children}: OpenURLButtonProps) => {
+    const handlePress = useCallback(async () => {
+      const supported = await Linking.canOpenURL(url);
+  
+      if (supported) {
+        await Linking.openURL(url);
+      } else {
+        Alert.alert(`Don't know how to open this URL: ${url}`);
+      }
+    }, [url]);
+  
+    return <Pressable onPress={handlePress}><Text style={{ textAlign: 'center'}}>{children}</Text></Pressable>;
+  };
 
   const dashesReversed = Object.keys(dashes).reverse()
   
@@ -77,6 +96,9 @@ export function ListScreen({navigation, route}) {
           </View>
         </ButtonComponent>
       </View>
+      <View style={styles.tyc}>
+        <OpenURLButton url='https://www.okwombat.com/tyc'>Ver términos y condiciones</OpenURLButton>
+      </View>
     </View>
   )
 }
@@ -115,5 +137,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: 'bold',
     paddingHorizontal: 5
+  },
+  tyc: {
+    textAlign: 'center',
+    padding: 20
   }
 })
