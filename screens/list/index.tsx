@@ -51,7 +51,7 @@ export function ListScreen({navigation, route}) {
       }
     }, [url]);
   
-    return <Pressable onPress={handlePress}><Text style={{ textAlign: 'center'}}>{children}</Text></Pressable>;
+    return <Pressable onPress={handlePress}><Text style={{ textAlign: 'center', fontSize: 12 }}>{children}</Text></Pressable>;
   };
 
   const dashesReversed = Object.keys(dashes).reverse()
@@ -97,7 +97,8 @@ export function ListScreen({navigation, route}) {
         </ButtonComponent>
       </View>
       <View style={styles.tyc}>
-        <OpenURLButton url='https://www.okwombat.com/tyc'>Ver términos y condiciones</OpenURLButton>
+        <OpenURLButton url='https://www.okwombat.com/tyc'>Términos y condiciones</OpenURLButton>
+        <OpenURLButton url='https://www.okwombat.com/politicas-de-privacidad'>Política de privacidad</OpenURLButton>
       </View>
     </View>
   )
@@ -139,7 +140,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5
   },
   tyc: {
-    textAlign: 'center',
-    padding: 20
+    paddingTop: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    gap: 20
   }
 })
