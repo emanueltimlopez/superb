@@ -1,10 +1,11 @@
 import React, { useCallback, useEffect, useState } from "react"
-import { StyleSheet, Text, View, Image, Pressable, Linking, Alert, Button } from "react-native"
+import { StyleSheet, Text, View, Image, Pressable, Linking, Alert, Modal } from "react-native"
 import useData from "../../lib/data/useData"
 import { ButtonComponent } from "../../components/button"
 import MasonryList from '@react-native-seoul/masonry-list';
 import Svg, { Path, Rect } from "react-native-svg"
 import * as SplashScreen from 'expo-splash-screen';
+import Button from 'react-native-flat-button'
 
 const themes = {
   'dinosaurs': require(`../../assets/themes/dinosaurs.png`),
@@ -15,8 +16,10 @@ const themes = {
 SplashScreen.preventAutoHideAsync();
 
 export function ListScreen({navigation, route}) {
-  const { dashes } = useData()
+  const { dashes, hideDash } = useData()
   const [appIsReady, setAppIsReady] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [removeDash, setRemoveDash] = useState('');
 
   useEffect(() => {
     async function prepare() {
@@ -54,7 +57,7 @@ export function ListScreen({navigation, route}) {
     return <Pressable onPress={handlePress}><Text style={{ textAlign: 'center', fontSize: 12 }}>{children}</Text></Pressable>;
   };
 
-  const dashesReversed = Object.keys(dashes).reverse()
+  const dashesReversed = Object.keys(dashes).reverse().filter(d => !dashes[d].hide)
   
   return (
     <View style={styles.container} onLayout={onLayoutRootView}>
@@ -68,7 +71,10 @@ export function ListScreen({navigation, route}) {
             const dash = dashes[item]
             return (
               <View style={styles.imageContainer} key={item}>
-                <Pressable onPress={() => {navigation.navigate("Dash", {id: item})}}>
+                <Pressable onPress={() => {navigation.navigate("Dash", {id: item})}} onLongPress={() => {
+                  setRemoveDash(dash)
+                  setModalVisible(true)
+                }}>
                   <Text style={styles.objetiveText}  numberOfLines={4} ellipsizeMode='tail'>{dash.objetive}</Text>
                   <Image source={themes[dash.theme]} style={{ width: "100%", height: 150 }} resizeMode='contain'/>
                 </Pressable>
@@ -100,6 +106,43 @@ export function ListScreen({navigation, route}) {
         <OpenURLButton url='https://www.okwombat.com/tyc'>Términos y condiciones</OpenURLButton>
         <OpenURLButton url='https://www.okwombat.com/politicas-de-privacidad'>Política de privacidad</OpenURLButton>
       </View>
+      <Modal
+        animationType="slide"
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}>
+          <View style={styles.modal}>
+            <Text style={styles.textModal}>¿Eliminar tablero?</Text>
+            <Button
+              type="custom"
+              onPress={() => {
+                hideDash(removeDash)
+                setModalVisible(!modalVisible)
+              }}
+              backgroundColor={"#EE7674"}
+              borderColor={"#EE4B48"}
+              borderRadius={6}
+              shadowHeight={8}
+              activeOpacity={0.5}
+              contentStyle={styles.modalButton}
+            >
+              Eliminar
+            </Button>
+            <Button
+              type="custom"
+              onPress={() => setModalVisible(!modalVisible)}
+              backgroundColor={'#9b59b6'}
+              borderColor={"#8e44ad"}
+              borderRadius={6}
+              shadowHeight={8}
+              activeOpacity={0.5}
+              contentStyle={styles.modalButton}
+            >
+              Cancelar
+            </Button>
+          </View>
+      </Modal>
     </View>
   )
 }
@@ -143,6 +186,21 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     flexDirection: 'row',
     justifyContent: 'space-around',
+    gap: 20
+  },
+  modalButton: {
+    padding: 10,
+  },
+  textModal: {
+    fontWeight: 'bold',
+    fontSize: 20,
+    textAlign: 'center',
+    padding: 20
+  },
+  modal: {
+    backgroundColor: '#fff',
+    borderRadius: 20,
+    padding: 60,
     gap: 20
   }
 })

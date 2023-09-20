@@ -21,6 +21,7 @@ export interface Dash {
   tokens: Token[];
   quantity: number;
   reinforcement: string;
+  hide?: boolean;
 }
 
 export interface IDataContext {
@@ -29,6 +30,7 @@ export interface IDataContext {
   getTokens: (dashId: string) => Token[];
   dashes: Record<string, Dash>;
   addDash: (dash: Dash) => void;
+  hideDash: (id: string) => void;
 }
 
 export const DataContext = createContext<IDataContext | undefined>(undefined)
@@ -99,6 +101,20 @@ export default function DataProvider({ children, userId = '' }: Props) {
     })
   }
 
+  const hideDash = (dash: Dash) => {
+    setDash(prevState => {
+      const newDashes = {
+        ...prevState,
+        [dash.id]: {
+          ...dash,
+          hide: true
+        }
+      }
+      storeData('dashes', newDashes)
+      return newDashes
+    })
+  }
+
   const value = useMemo(() => {
     return {
       user,
@@ -106,7 +122,8 @@ export default function DataProvider({ children, userId = '' }: Props) {
       addToken,
       addDash,
       dashes,
-      getDash: (id: string) => dashes[id]
+      getDash: (id: string) => dashes[id],
+      hideDash
     };
   }, [user, dashes])
 
