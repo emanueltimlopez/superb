@@ -43,9 +43,12 @@ export function FeedbackScreen({navigation, route}) {
         }}/>
       </View>
 
-      {showButton && <ButtonComponent text="¡Vamos por más!" onPress={() => {
-        navigation.goBack()
-      }}/>}
+      {showButton && 
+        <View style={styles.buttonContainer}>
+          <ButtonComponent text="¡Vamos por más!" onPress={() => {
+            navigation.goBack()
+          }}/>
+        </View>}
     </View>
   )
 }
@@ -67,5 +70,11 @@ const styles = StyleSheet.create({
     width: '100%',
     color: '#fff',
     paddingBottom: 50
+  },
+  buttonContainer: {
+    marginTop: 80,
+    maxWidth: 600,
+    width: "100%",
+    alignSelf: 'center'
   },
 })

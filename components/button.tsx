@@ -2,7 +2,7 @@ import React, { Children } from "react"
 import { StyleSheet, View } from "react-native"
 import Button from 'react-native-flat-button'
 
-export function ButtonComponent({ onPress, text='', stylesProp = {}, children, background = "#9b59b6", border = "#8e44ad" }) {
+export function ButtonComponent({ onPress, text='', stylesProp = {}, disabled = false, children, background = "#9b59b6", border = "#8e44ad" }) {
   return (
     <View style={styles.buttonContainer}>
       <Button
@@ -12,7 +12,6 @@ export function ButtonComponent({ onPress, text='', stylesProp = {}, children, b
         borderColor={border}
         borderRadius={6}
         shadowHeight={8}
-        activeOpacity={0.5}
         contentStyle={[styles.button, stylesProp]}
       >
         {text && text}

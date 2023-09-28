@@ -15,8 +15,13 @@ export function DashScreen({navigation, route}) {
   const tokensList = getTokens(dashId)
   const spaces = dash.quantity
   const tokensOverflow = spaces > 12
-  const imageHeight = (windowHeight - 200) / (tokensOverflow ? 6 : 4) - 20
-  const imageWidth = windowWidth / (tokensOverflow ? 4 : 3) - 20
+  let imageHeight = (windowHeight - 200) / (tokensOverflow ? 6 : 4) - 20
+  let imageWidth = windowWidth / (tokensOverflow ? 4 : 3) - 20
+
+  if (windowWidth > 1100) {
+    imageHeight = (windowHeight - 50) / (tokensOverflow ? 8 : 6) - 10
+    imageWidth =  windowWidth / (tokensOverflow ? 4 : 4) - 10
+  }
 
   const emptyTokens = Array.from({length: spaces - (tokensList?.length || 0)}, (v, index) => (index))
   const finalTokens = tokensList?.concat(emptyTokens) || emptyTokens
@@ -48,15 +53,21 @@ export function DashScreen({navigation, route}) {
           </View>)
         })}
       </View>
-      {tokensList?.length < dash.quantity && <ButtonComponent text="¡Lo lograste!" onPress={() => {
-        const token = Math.floor(Math.random() * 6) + 1
-        const isTheLast = (tokensList?.length + 1) === dash.quantity
-        addToken(dashId, token)
-        setFinish(true)
-      }}/>}
-      {!(tokensList?.length < dash.quantity) && finish && <ButtonComponent background="#5eba7d" border="#2d5c3d" text="¡Festejemos!" onPress={() => {
-        navigation.navigate("Feedback", { dashReinforcement: dash.reinforcement })
-      }}/>}
+      {tokensList?.length < dash.quantity && 
+        <View style={styles.buttonContainer}>
+          <ButtonComponent text="¡Lo lograste!" onPress={() => {
+            const token = Math.floor(Math.random() * 6) + 1
+            const isTheLast = (tokensList?.length + 1) === dash.quantity
+            addToken(dashId, token)
+            setFinish(true)
+          }}/>
+      </View>}
+      {!(tokensList?.length < dash.quantity) && finish && 
+        <View style={styles.buttonContainer}>
+          <ButtonComponent background="#5eba7d" border="#2d5c3d" text="¡Festejemos!" onPress={() => {
+            navigation.navigate("Feedback", { dashReinforcement: dash.reinforcement })
+          }}/>
+      </View>}
       {!(tokensList?.length < dash.quantity) && !finish && <Text style={styles.reinceforment}>Completado</Text>}
     </View>
   )
@@ -85,15 +96,21 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   listContainer: {
-    flex: 1,
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'flex-start',
+    flex: 1,
+    alignContent: 'flex-start'
   },
   emptyContainer: {
     borderWidth: 2,
     borderColor: '#999',
     borderRadius: 20,
     marginVertical: 10,
+  },
+  buttonContainer: {
+    maxWidth: 400,
+    width: '100%',
+    alignSelf: 'center'
   }
 })

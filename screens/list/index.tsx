@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react"
-import { StyleSheet, Text, View, Image, Pressable, Linking, Alert, Modal } from "react-native"
+import { StyleSheet, Text, View, Image, Pressable, Linking, Alert, Modal, Dimensions } from "react-native"
 import useData from "../../lib/data/useData"
 import { ButtonComponent } from "../../components/button"
 import MasonryList from '@react-native-seoul/masonry-list';
@@ -12,6 +12,8 @@ const themes = {
   'transports': require(`../../assets/themes/transports.png`),
   'farm': require(`../../assets/themes/farm.png`)
 }
+
+const windowWidth = Dimensions.get("window").width;
 
 SplashScreen.preventAutoHideAsync();
 
@@ -65,7 +67,7 @@ export function ListScreen({navigation, route}) {
         <MasonryList
           data={dashesReversed}
           keyExtractor={({item}): string => item}
-          numColumns={2}
+          numColumns={windowWidth > 1100 ? 5 : 2}
           showsVerticalScrollIndicator={true}
           renderItem={({item}) => {
             const dash = dashes[item]

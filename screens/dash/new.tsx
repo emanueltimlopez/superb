@@ -26,6 +26,8 @@ export function NewDashScreen({navigation, route}) {
   const [quantity, setQuantity] = useState('')
   const [selectedTheme, setSelectedTheme] = useState('')
 
+  const disabled = !objetive || !selectedTheme || !quantity || !reinforcement
+
   return (
     <View style={styles.container}>
       <View style={styles.optionsContainer}>
@@ -45,9 +47,9 @@ export function NewDashScreen({navigation, route}) {
         <TextInput keyboardType="numeric" placeholder="Cantidad" style={styles.input} value={quantity} onChangeText={(value) => setQuantity(value)}/>
       </View>
       <View style={styles.buttonContainer}>
-        <ButtonComponent stylesProp={styles.button} text="Crear" onPress={() => 
+        <ButtonComponent stylesProp={styles.button} disabled={disabled} text="Crear" onPress={() => 
           { 
-            if (objetive && selectedTheme && quantity && reinforcement) {
+            if (!disabled) {
               const id = uuidv1()
               const dash = { id, objetive, theme: selectedTheme, tokens: [], quantity: parseInt(quantity), reinforcement }
               addDash(dash)
@@ -63,7 +65,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    paddingHorizontal: 20,
+    paddingHorizontal: 40,
+    alignItems: 'center'
   },
   listThemes: {
     flexDirection: 'row'
@@ -73,7 +76,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     borderWidth: 1,
     borderColor: '#666',
-    borderRadius: 10
+    borderRadius: 10,
   },
   label: {
     fontSize: 18,
@@ -87,8 +90,12 @@ const styles = StyleSheet.create({
     borderRadius: 10
   },
   optionsContainer: {
+    maxWidth: 600,
+    width: "100%",
   },
   buttonContainer: {
-    marginTop: 20
+    marginTop: 20,
+    maxWidth: 600,
+    width: "100%",
   },
 })
