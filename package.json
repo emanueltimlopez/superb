@@ -8,7 +8,8 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "i18n:extract": "lingui extract",
-    "i18n:compile": "lingui compile"
+    "i18n:compile": "lingui compile",
+    "build": "eas build --platform android"
   },
   "dependencies": {
     "@expo/webpack-config": "^19.0.0",
