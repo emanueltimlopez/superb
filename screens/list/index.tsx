@@ -1,11 +1,14 @@
 import React, { useCallback, useEffect, useState } from "react"
 import { StyleSheet, Text, View, Image, Pressable, Linking, Alert, Modal, Dimensions } from "react-native"
-import useData from "../../lib/data/useData"
-import { ButtonComponent } from "../../components/button"
 import MasonryList from '@react-native-seoul/masonry-list';
-import Svg, { Path, Rect } from "react-native-svg"
+import Svg, { Path } from "react-native-svg"
 import * as SplashScreen from 'expo-splash-screen';
 import Button from 'react-native-flat-button'
+import { useLingui } from "@lingui/react";
+import { t } from "@lingui/macro";
+
+import useData from "../../lib/data/useData"
+import { ButtonComponent } from "../../components/button"
 
 const themes = {
   'dinosaurs': require(`../../assets/themes/dinosaurs.png`),
@@ -18,6 +21,8 @@ const windowWidth = Dimensions.get("window").width;
 SplashScreen.preventAutoHideAsync();
 
 export function ListScreen({navigation, route}) {
+  const { i18n } = useLingui()
+
   const { dashes, hideDash } = useData()
   const [appIsReady, setAppIsReady] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
@@ -51,8 +56,6 @@ export function ListScreen({navigation, route}) {
   
       if (supported) {
         await Linking.openURL(url);
-      } else {
-        Alert.alert(`Don't know how to open this URL: ${url}`);
       }
     }, [url]);
   
@@ -86,7 +89,7 @@ export function ListScreen({navigation, route}) {
         />
       </View>
       <View style={styles.buttonContainer}>
-        <ButtonComponent stylesProp={{ height: 40, width: 200, textAlign: 'center' }} text="Nuevo tablero" onPress={() => {
+        <ButtonComponent stylesProp={{ height: 40, width: 200, textAlign: 'center' }} text={t(i18n)`New board`} onPress={() => {
           navigation.navigate("NewDash")
         }}/>
         <ButtonComponent stylesProp={{ height: 40 }} onPress={() => {
@@ -105,8 +108,8 @@ export function ListScreen({navigation, route}) {
         </ButtonComponent>
       </View>
       <View style={styles.tyc}>
-        <OpenURLButton url='https://www.okwombat.com/tyc'>Términos y condiciones</OpenURLButton>
-        <OpenURLButton url='https://www.okwombat.com/politicas-de-privacidad'>Política de privacidad</OpenURLButton>
+        <OpenURLButton url='https://www.okwombat.com/tyc'>{t(i18n)`Terms and Conditions`}</OpenURLButton>
+        <OpenURLButton url='https://www.okwombat.com/politicas-de-privacidad'>{t(i18n)`Privacy Policy`}</OpenURLButton>
       </View>
       <Modal
         animationType="slide"
@@ -115,7 +118,7 @@ export function ListScreen({navigation, route}) {
           setModalVisible(!modalVisible);
         }}>
           <View style={styles.modal}>
-            <Text style={styles.textModal}>¿Eliminar tablero?</Text>
+            <Text style={styles.textModal}>{t(i18n)`Remove board?`}</Text>
             <Button
               type="custom"
               onPress={() => {
@@ -129,7 +132,7 @@ export function ListScreen({navigation, route}) {
               activeOpacity={0.5}
               contentStyle={styles.modalButton}
             >
-              Eliminar
+              {t(i18n)`Remove`}
             </Button>
             <Button
               type="custom"
@@ -141,7 +144,7 @@ export function ListScreen({navigation, route}) {
               activeOpacity={0.5}
               contentStyle={styles.modalButton}
             >
-              Cancelar
+              {t(i18n)`Cancel`}
             </Button>
           </View>
       </Modal>

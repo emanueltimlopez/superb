@@ -1,9 +1,13 @@
 import React from "react"
-import { Dimensions, StyleSheet, Text, View } from "react-native"
+import { StyleSheet, Text, View } from "react-native"
+import { useLingui } from "@lingui/react"
+import { t } from "@lingui/macro"
+import dayjs from 'dayjs'
+
 import useData from "../../lib/data/useData"
 import BarChart from "../../components/barChar";
-import dayjs from 'dayjs'
 require('dayjs/locale/es')
+require('dayjs/locale/en')
 
 const groupDates = (dates) => dates.reduce((accumulator, date) => {
   const parsed = new Date(date);
@@ -17,6 +21,7 @@ const groupDates = (dates) => dates.reduce((accumulator, date) => {
 
 
 export function MetricsScreen({navigation, route}) {
+  const { i18n } = useLingui()
   const { dashes } = useData()
 
   const dashCompleted = Object.values(dashes).filter(({ tokens, quantity }) => {
@@ -30,7 +35,7 @@ export function MetricsScreen({navigation, route}) {
   const constGroups = Object.keys(groups).map((key) => {
     const { dates } = groups[key]
     const date = new Date(key)
-    const monthInSpanish = dayjs(date).locale('es').format('MMMM');
+    const monthInSpanish = dayjs(date).locale(i18n.locale).format('MMMM');
 
     return {
       label: monthInSpanish,
@@ -40,9 +45,9 @@ export function MetricsScreen({navigation, route}) {
   
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Tableros completados</Text>
+      <Text style={styles.title}>{t(i18n)`Boards completed`}</Text>
       <Text style={styles.count}>{dashCompleted?.length}/{Object.values(dashes)?.length}</Text>
-      <Text style={styles.title}>Tableros completados por mes</Text>
+      <Text style={styles.title}>{t(i18n)`Boards completed by month`}</Text>
       <BarChart data={constGroups}/>
     </View>
   )

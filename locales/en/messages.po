@@ -1,0 +1,107 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2023-09-30 10:01-0300\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: en\n"
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Plural-Forms: \n"
+
+#: screens/metrics/index.tsx:48
+msgid "Boards completed"
+msgstr ""
+
+#: screens/metrics/index.tsx:50
+msgid "Boards completed by month"
+msgstr ""
+
+#: screens/list/index.tsx:147
+msgid "Cancel"
+msgstr ""
+
+#: screens/dash/index.tsx:80
+msgid "Completed"
+msgstr ""
+
+#: screens/dash/new.tsx:54
+msgid "Create"
+msgstr ""
+
+#: screens/dash/new.tsx:39
+msgid "Goal"
+msgstr ""
+
+#: screens/dash/index.tsx:76
+msgid "Let's celebrate!"
+msgstr ""
+
+#: screens/feedback/index.tsx:51
+msgid "Let's go for more!"
+msgstr ""
+
+#: screens/dash/index.tsx:37
+msgid "Let's work for"
+msgstr ""
+
+#: App.tsx:51
+msgid "Metrics"
+msgstr ""
+
+#: screens/list/index.tsx:92
+#: App.tsx:43
+msgid "New board"
+msgstr ""
+
+#: screens/list/index.tsx:112
+msgid "Privacy Policy"
+msgstr ""
+
+#: screens/dash/new.tsx:51
+msgid "Quantity"
+msgstr ""
+
+#: screens/dash/new.tsx:50
+msgid "Quantity of tokens"
+msgstr ""
+
+#: screens/dash/new.tsx:41
+msgid "Reinforcement"
+msgstr ""
+
+#: screens/list/index.tsx:135
+msgid "Remove"
+msgstr ""
+
+#: screens/list/index.tsx:121
+msgid "Remove board?"
+msgstr ""
+
+#: screens/dash/new.tsx:42
+msgid "Select a theme"
+msgstr ""
+
+#: screens/list/index.tsx:111
+msgid "Terms and Conditions"
+msgstr ""
+
+#: screens/dash/new.tsx:38
+msgid "What do you want to achieve?"
+msgstr ""
+
+#: screens/dash/new.tsx:40
+msgid "Which is the prize?"
+msgstr ""
+
+#: screens/dash/index.tsx:67
+msgid "You did!"
+msgstr ""
+
+#: screens/feedback/index.tsx:39
+msgid "You won"
+msgstr ""

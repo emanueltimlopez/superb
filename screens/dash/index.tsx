@@ -1,5 +1,8 @@
 import React, { useState } from "react"
 import { StyleSheet, Dimensions, Text, View, Image } from "react-native"
+import { useLingui } from "@lingui/react"
+import { t } from "@lingui/macro"
+
 import useData from "../../lib/data/useData"
 import { ButtonComponent } from "../../components/button"
 import { tokens } from "../../lib/tokens"
@@ -8,6 +11,8 @@ const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
 export function DashScreen({navigation, route}) {
+  const { i18n } = useLingui()
+
   const { user, getTokens, addToken, dashes } = useData()
   const [finish, setFinish] = useState(false)
   const dashId = route.params?.id
@@ -29,16 +34,20 @@ export function DashScreen({navigation, route}) {
   return (
     <View style={styles.container}>
       <View style={styles.listContainer}>
-        <Text style={styles.reinceforment}>Vamos a trabajar por {dash.reinforcement}</Text>
+        <Text style={styles.reinceforment}>{t(i18n)`Let's work for`} {dash.reinforcement}</Text>
 
-        {finalTokens.map(token => {
+        {finalTokens.map((token, index) => {
           if (!token.date) {
             return (
-              <Image source={tokens[dash.theme].empty} style={{
-                alignSelf: 'center',
-                height: imageHeight,
-                width: imageWidth
-              }} resizeMode='contain'/>
+              <Image 
+                key={index}
+                source={tokens[dash.theme].empty} 
+                style={{
+                  alignSelf: 'center',
+                  height: imageHeight,
+                  width: imageWidth
+                }}
+                resizeMode='contain'/>
             )
           }
           return (<View style={{
@@ -55,7 +64,7 @@ export function DashScreen({navigation, route}) {
       </View>
       {tokensList?.length < dash.quantity && 
         <View style={styles.buttonContainer}>
-          <ButtonComponent text="¡Lo lograste!" onPress={() => {
+          <ButtonComponent text={t(i18n)`You did!`} onPress={() => {
             const token = Math.floor(Math.random() * 6) + 1
             const isTheLast = (tokensList?.length + 1) === dash.quantity
             addToken(dashId, token)
@@ -64,11 +73,11 @@ export function DashScreen({navigation, route}) {
       </View>}
       {!(tokensList?.length < dash.quantity) && finish && 
         <View style={styles.buttonContainer}>
-          <ButtonComponent background="#5eba7d" border="#2d5c3d" text="¡Festejemos!" onPress={() => {
+          <ButtonComponent background="#5eba7d" border="#2d5c3d" text={t(i18n)`Let's celebrate!`} onPress={() => {
             navigation.navigate("Feedback", { dashReinforcement: dash.reinforcement })
           }}/>
       </View>}
-      {!(tokensList?.length < dash.quantity) && !finish && <Text style={styles.reinceforment}>Completado</Text>}
+      {!(tokensList?.length < dash.quantity) && !finish && <Text style={styles.reinceforment}>{t(i18n)`Completed`}</Text>}
     </View>
   )
 }

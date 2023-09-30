@@ -79,7 +79,7 @@ export default class BarChart extends PureComponent {
           />
 
            {/* bars */}
-           {data.map(item => (<>
+           {data.map(item => (
             <Rect
               key={'bar' + item.label}
               x={x(item.label) - (GRAPH_BAR_WIDTH / 2)}
@@ -89,6 +89,8 @@ export default class BarChart extends PureComponent {
               height={y(item.value)}
               fill={colors.bars}
             />
+           ))}
+           {data.map(item => (
             <Text
               key={'count' + item.label}
               fontSize="15"
@@ -97,13 +99,12 @@ export default class BarChart extends PureComponent {
               textAnchor="middle">
                 {item.value}
             </Text>
-            </>
-          ))}
+           ))}
 
           {/* labels */}
           {data.map(item => (
             <Text
-            key={'label' + item.label}
+              key={'label' + item.label}
             fontSize="12"
             x={x(item.label)}
             y="15"

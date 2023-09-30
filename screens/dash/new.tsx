@@ -1,6 +1,9 @@
 import React, { useState } from "react"
 import { StyleSheet, Text, View, Image, Pressable, TextInput } from "react-native"
 import { v1 as uuidv1 } from 'uuid';
+import { useLingui } from "@lingui/react";
+import { t } from "@lingui/macro";
+
 import useData from "../../lib/data/useData";
 import { ButtonComponent } from "../../components/button";
 
@@ -20,6 +23,7 @@ const themes = [
 ]
 
 export function NewDashScreen({navigation, route}) {
+  const { i18n } = useLingui()
   const { user, addDash } = useData()
   const [objetive, setObjetive] = useState('')
   const [reinforcement, setReinforcement] = useState('')
@@ -31,11 +35,11 @@ export function NewDashScreen({navigation, route}) {
   return (
     <View style={styles.container}>
       <View style={styles.optionsContainer}>
-        <Text style={styles.label}>¿Que es lo que se quiere lograr?</Text>
-        <TextInput multiline placeholder="Objetivo" style={styles.input} value={objetive} onChangeText={(value) => setObjetive(value)}/>
-        <Text style={styles.label}>¿Cual es el premio?</Text>
-        <TextInput placeholder="Refuerzo" style={styles.input} value={reinforcement} onChangeText={(value) => setReinforcement(value)}/>
-        <Text style={styles.label}>Selecciona un tema</Text>
+        <Text style={styles.label}>{t(i18n)`What do you want to achieve?`}</Text>
+        <TextInput multiline placeholder={t(i18n)`Goal`} style={styles.input} value={objetive} onChangeText={(value) => setObjetive(value)}/>
+        <Text style={styles.label}>{t(i18n)`Which is the prize?`}</Text>
+        <TextInput placeholder={t(i18n)`Reinforcement`} style={styles.input} value={reinforcement} onChangeText={(value) => setReinforcement(value)}/>
+        <Text style={styles.label}>{t(i18n)`Select a theme`}</Text>
         <View style={styles.listThemes}>
           {themes.map(theme => (
             <Pressable key={theme.id} onPress={() => {setSelectedTheme(theme.id)}} style={selectedTheme === theme.id ? styles.selectedTheme : {}}>
@@ -43,11 +47,11 @@ export function NewDashScreen({navigation, route}) {
             </Pressable>
           ))}
         </View>
-        <Text style={styles.label}>Cantidad de fichas</Text>
-        <TextInput keyboardType="numeric" placeholder="Cantidad" style={styles.input} value={quantity} onChangeText={(value) => setQuantity(value)}/>
+        <Text style={styles.label}>{t(i18n)`Quantity of tokens`}</Text>
+        <TextInput keyboardType="numeric" placeholder={t(i18n)`Quantity`} style={styles.input} value={quantity} onChangeText={(value) => setQuantity(value)}/>
       </View>
       <View style={styles.buttonContainer}>
-        <ButtonComponent stylesProp={styles.button} disabled={disabled} text="Crear" onPress={() => 
+        <ButtonComponent stylesProp={styles.button} disabled={disabled} text={t(i18n)`Create`} onPress={() => 
           { 
             if (!disabled) {
               const id = uuidv1()
