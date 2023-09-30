@@ -15,12 +15,14 @@ import { t } from "@lingui/macro";
 
 import { DashScreen } from './screens/dash';
 import DataProvider from './lib/data/provider';
-import { ListScreen } from './screens/list';
+import { ListScreen } from './screens/list/list';
 import { NewDashScreen } from './screens/dash/new';
 import { FeedbackScreen } from './screens/feedback';
 import { MetricsScreen } from './screens/metrics';
 import { messages as enMessages } from './locales/en/messages';
 import { messages as esMessages } from './locales/es/messages';
+import { HomeScreen } from './screens/list'
+import { ConfigScreen } from './screens/config'
 
 const Stack = createStackNavigator();
 i18n.load({
@@ -38,7 +40,7 @@ function NavigationRouter() {
 
   return (
     <Stack.Navigator>
-      <Stack.Screen name="List" component={ListScreen} options={{ headerShown: false, title: 'Superb' }}/>
+      <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false, title: 'Superb' }}/>
       <Stack.Screen name="Dash" component={DashScreen} options={{ title: 'Superb', headerTitle: EmptyHeader}} />
       <Stack.Screen name="NewDash" component={NewDashScreen} options={{ title: t(i18n)`New board` }}/>
       <Stack.Screen name="Feedback" component={FeedbackScreen} options={{ 
@@ -49,6 +51,7 @@ function NavigationRouter() {
         }
       }}/>
       <Stack.Screen name="Metrics" component={MetricsScreen} options={{ title: t(i18n)`Metrics` }}/>
+      <Stack.Screen name="Config" component={ConfigScreen} options={{ title: 'Superb', headerTitle: EmptyHeader }}/>
     </Stack.Navigator>
   )
 }

@@ -19,11 +19,13 @@
     "@react-native-async-storage/async-storage": "1.18.2",
     "@react-native-masked-view/masked-view": "^0.2.9",
     "@react-native-seoul/masonry-list": "^1.4.2",
+    "@react-navigation/bottom-tabs": "^6.5.9",
     "@react-navigation/stack": "^6.3.18",
     "@shopify/react-native-skia": "0.1.196",
     "d3": "^7.8.5",
     "dayjs": "^1.11.9",
     "expo": "~49.0.13",
+    "expo-localization": "~14.3.0",
     "expo-splash-screen": "~0.20.5",
     "expo-status-bar": "~1.6.0",
     "lottie-react-native": "5.1.6",
@@ -38,8 +40,7 @@
     "react-native-safe-area-context": "4.6.3",
     "react-native-screens": "~3.22.0",
     "react-native-svg": "13.9.0",
-    "react-native-web": "~0.19.6",
-    "expo-localization": "~14.3.0"
+    "react-native-web": "~0.19.6"
   },
   "devDependencies": {
     "@babel/core": "^7.23.0",
