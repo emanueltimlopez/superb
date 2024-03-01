@@ -47,7 +47,7 @@ msgstr "¡Vamos por más!"
 
 #: screens/dash/index.tsx:37
 msgid "Let's work for"
-msgstr "Tabajemos por"
+msgstr "Trabajemos por"
 
 #: App.tsx:51
 msgid "Metrics"
